@@ -1,9 +1,6 @@
 const mongoose = require("mongoose");
 
-const dbConn = async () => {
-  const db_url =
-    "mongodb+srv://altajvirani:altajvirani@cluster0.vs2zuub.mongodb.net/";
-
+const dbConn = async (db_url) => {
   await mongoose
     .connect(db_url, { dbName: "metricoid" })
     .then(() => {

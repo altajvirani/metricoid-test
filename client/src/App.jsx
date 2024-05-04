@@ -1,10 +1,14 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Dropdown, Table, Button, Form, FormControl } from "react-bootstrap";
+import { Table, Button, Form, FormControl } from "react-bootstrap";
 import { useState, useEffect, useRef } from "react";
 import axios from "axios";
+import process from "process";
 
 function App() {
+  const SERVER_URL = process.env.SERVER_URL;
+
   const [products, setProducts] = useState([]);
   const [orders, setOrders] = useState([]);
 
@@ -18,7 +22,7 @@ function App() {
   useEffect(() => {
     const getOrders = async () => {
       await axios
-        .get("http://localhost:5000/get-orders")
+        .get(`${SERVER_URL}get-orders`)
         .then((fetchedOrders) => setOrders(fetchedOrders.data.orders))
         .catch((err) => {
           console.error(`Error fetching orders: ${err}`);
@@ -29,7 +33,7 @@ function App() {
 
     const getProducts = async () => {
       await axios
-        .get("http://localhost:5000/get-products")
+        .get(`${SERVER_URL}get-products`)
         .then((fetchedProducts) => setProducts(fetchedProducts.data.products))
         .catch((err) => {
           console.error(`Error fetching products: ${err}`);
