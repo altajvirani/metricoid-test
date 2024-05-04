@@ -9,6 +9,8 @@ import process from "process";
 function App() {
   const SERVER_URL = process.env.SERVER_URL;
 
+  console.log(SERVER_URL);
+
   const [products, setProducts] = useState([]);
   const [orders, setOrders] = useState([]);
 
