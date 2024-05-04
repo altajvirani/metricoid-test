@@ -35,7 +35,7 @@ function App() {
 
     const getProducts = async () => {
       await axios
-        .get(`${SERVER_URL}get-products`)
+        .get(`${REACT_APP_SERVER_URL}get-products`)
         .then((fetchedProducts) => setProducts(fetchedProducts.data.products))
         .catch((err) => {
           console.error(`Error fetching products: ${err}`);
