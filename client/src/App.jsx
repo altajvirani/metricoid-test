@@ -7,9 +7,9 @@ import axios from "axios";
 import process from "process";
 
 function App() {
-  const REACT_APP_SERVER_URL = process.env.REACT_APP_SERVER_URL;
+  const VITE_SERVER_URL = process.env.VITE_SERVER_URL;
 
-  console.log(REACT_APP_SERVER_URL);
+  console.log(VITE_SERVER_URL);
 
   const [products, setProducts] = useState([]);
   const [orders, setOrders] = useState([]);
@@ -24,7 +24,7 @@ function App() {
   useEffect(() => {
     const getOrders = async () => {
       await axios
-        .get(`${REACT_APP_SERVER_URL}get-orders`)
+        .get(`${VITE_SERVER_URL}get-orders`)
         .then((fetchedOrders) => setOrders(fetchedOrders.data.orders))
         .catch((err) => {
           console.error(`Error fetching orders: ${err}`);
@@ -35,7 +35,7 @@ function App() {
 
     const getProducts = async () => {
       await axios
-        .get(`${REACT_APP_SERVER_URL}get-products`)
+        .get(`${VITE_SERVER_URL}get-products`)
         .then((fetchedProducts) => setProducts(fetchedProducts.data.products))
         .catch((err) => {
           console.error(`Error fetching products: ${err}`);
