@@ -8,15 +8,8 @@ function App() {
   const [products, setProducts] = useState([]);
   const [orders, setOrders] = useState([]);
 
-  const [newOrder, setNewOrder] = useState({
-    c_name: "nisha",
-    p_name: "speaker",
-    quantity: 10,
-    o_price: 100000,
-  });
-
   const customerName = useRef(null);
-  const [selectedProduct, setSelectedProduct] = useState();
+  const [selectedProduct, setSelectedProduct] = useState(null);
   const [quantity, setQuantity] = useState(1);
   const [totalPrice, setTotalPrice] = useState(0);
 
@@ -47,11 +40,33 @@ function App() {
   }, []);
 
   useEffect(() => {
-    console.log(products);
-  }, [products]);
+    setTotalPrice(
+      selectedProduct !== null ? selectedProduct.p_price * quantity : 0
+    );
+  }, [quantity, selectedProduct]);
+
+  useEffect(() => {
+    setSelectedProduct(null);
+    setQuantity(1);
+    setTotalPrice(0);
+  }, [isModalOpen]);
 
   const handleNewOrder = async () => {
-    await axios.post("http://localhost:5000/new-order/", newOrder);
+    if (
+      customerName.current !== null &&
+      customerName.current.value.trim() !== "" &&
+      selectedProduct !== null
+    ) {
+      await axios
+        .post("http://localhost:5000/new-order/", {
+          c_name: customerName.current.value.trim(),
+          p_name: selectedProduct.p_name,
+          quantity: parseInt(quantity),
+          o_price: parseInt(totalPrice),
+        })
+        .then((res) => console.log(res))
+        .catch((err) => console.error(err));
+    }
   };
 
   return (
@@ -149,7 +164,11 @@ function App() {
               padding: "0 1rem",
             }}>
             <Form.Label>Customer Name</Form.Label>
-            <FormControl type="text" placeholder="Eg. John Doe" />
+            <FormControl
+              type="text"
+              placeholder="Eg. John Doe"
+              ref={customerName}
+            />
           </div>
           <div
             style={{
@@ -158,21 +177,16 @@ function App() {
             <Form.Select
               tyle={{ width: "100%" }}
               onChange={(e) => {
-                setSelectedProduct(e.target.value);
-
-                setTotalPrice(() => {
-                  const selectedProductPrice = products.find(
-                    (product) =>
-                      selectedProduct &&
-                      selectedProduct.toLowerCase() ===
-                        product.p_name.toLowerCase()
-                  );
-                  return selectedProductPrice
-                    ? selectedProductPrice.p_price * quantity
-                    : 0;
-                });
+                setSelectedProduct(
+                  ...products.map((product, index) => {
+                    if (e.target.value.toLowerCase() === product.p_name) {
+                      return product;
+                    }
+                    return null;
+                  })
+                );
               }}>
-              <option selected="true" disabled="true">
+              <option selected={true} disabled={true}>
                 Product Name
               </option>
               {products.map((product, index) => {
@@ -211,7 +225,7 @@ function App() {
               padding: "0 1rem",
             }}>
             <span>Total Price</span>
-            <span>{0}</span>
+            <span>{totalPrice ?? 0}</span>
           </div>
 
           <div
