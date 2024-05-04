@@ -8,8 +8,6 @@ import axios from "axios";
 function App() {
   const VITE_SERVER_URL = import.meta.env.VITE_SERVER_URL;
 
-  console.log(VITE_SERVER_URL);
-
   const [products, setProducts] = useState([]);
   const [orders, setOrders] = useState([]);
 
