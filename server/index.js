@@ -12,7 +12,7 @@ dbConn(process.env.DB_URL);
 
 const cors = require("cors");
 
-app.use(cors());
+app.use(cors({ origin: [] }));
 
 app.use(express.json());
 
