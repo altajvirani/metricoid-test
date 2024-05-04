@@ -4,10 +4,9 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Table, Button, Form, FormControl } from "react-bootstrap";
 import { useState, useEffect, useRef } from "react";
 import axios from "axios";
-import process from "process";
 
 function App() {
-  const VITE_SERVER_URL = process.env.VITE_SERVER_URL;
+  const VITE_SERVER_URL = import.meta.env.VITE_SERVER_URL;
 
   console.log(VITE_SERVER_URL);
 
