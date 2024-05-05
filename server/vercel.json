@@ -4,18 +4,26 @@
     {
       "src": "./api/index.js",
       "use": "@vercel/node"
+    },
+    {
+      "src": "./api/routes/routes.js",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "./api/db.js",
+      "use": "@vercel/node"
     }
   ],
   "routes": [
     {
-      "src": "./api/(.*)",
+      "src": "/api/(.*)",
       "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
       "headers": {
         "Access-Control-Allow-Origin": "*",
         "Access-Control-Allow-Methods": "GET,POST,PUT,DELETE,OPTIONS",
         "Access-Control-Allow-Headers": "X-Requested-With, Content-Type, Accept, Origin, Authorization"
       },
-      "dest": "/$1"
+      "dest": "/api/$1"
     }
   ]
-}
+}s
