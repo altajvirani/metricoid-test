@@ -8,11 +8,7 @@ const DB_URL = process.env.DB_URL;
 dbConn(DB_URL);
 
 const cors = require("cors");
-app.use(cors({}));
-
-app.use({
-  origin: "https://metricoid-test.vercel.app",
-});
+app.use(cors());
 
 const routes = require("./routes");
 app.use(routes);
