@@ -16,7 +16,7 @@ app.use(cors());
 
 app.use(express.json());
 
-const routes = require("../routes/routes");
+const routes = require("./routes/routes");
 
 app.use(routes);
 

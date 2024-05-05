@@ -1,5 +1,5 @@
-const Order = require("../../models/Order");
-const Product = require("../../models/Product");
+const Order = require("../models/Order");
+const Product = require("../models/Product");
 
 const router = require("express").Router();
 
