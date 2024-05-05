@@ -12,9 +12,13 @@ dbConn(process.env.DB_URL);
 
 const cors = require("cors");
 
-app.use(cors());
+app.use(cors({}));
 
-app.use(express.json());
+app.use(
+  express.json({
+    origin: "https://metricoid-test.vercel.app",
+  })
+);
 
 const routes = require("./routes/routes");
 
